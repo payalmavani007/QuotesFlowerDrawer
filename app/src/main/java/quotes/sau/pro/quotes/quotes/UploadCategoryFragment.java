@@ -3,6 +3,7 @@ package quotes.sau.pro.quotes.quotes;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -250,6 +251,12 @@ public class UploadCategoryFragment extends Fragment {
             }
         });
         return  view;
+    }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("Upload Quotes");
+
     }
     }
 

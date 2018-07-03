@@ -1,18 +1,15 @@
 package quotes.sau.pro.quotes.quotes;
 
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
@@ -31,8 +28,12 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
         setupToolbar();
         setupMenu();
+        
+     /*   android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        Fragment fragment = new HomeFragment();
+        fragmentTransaction.replace(R.id.frame_containt,fragment);
+        fragmentTransaction.commit();*/
     }
-
 
     protected void setupToolbar() {
          toolbar =  findViewById(R.id.toolbar);
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("MainActivity", "openRatio=" + openRatio + " ,offsetPixels=" + offsetPixels);
             }
         });
+
     }
     @Override
     public void onBackPressed () {

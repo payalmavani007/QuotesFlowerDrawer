@@ -19,6 +19,7 @@
                 android:layout_marginRight="20dp"
                 android:gravity="center_horizontal"
                 android:text="Upload Quotes"
+                android:visibility="gone"
                 android:textColor="#000000"
                 android:textSize="30dp"
                 android:textStyle="bold" />
