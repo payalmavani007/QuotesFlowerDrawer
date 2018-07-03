@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2d5d82</color>
+    <color name="colorPrimaryDark">#21425d</color>
+    <color name="colorAccent">#01bcd5</color>
+    <color name="fab_color_pressed">#007787</color>
+    <color name="fab_color_shadow">#44000000</color>
+    <color name="text_like_counter">#2b5a83</color>
+    <color name="paint_color">#dddddd</color>
+    <color name="colorwhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+</resources>
