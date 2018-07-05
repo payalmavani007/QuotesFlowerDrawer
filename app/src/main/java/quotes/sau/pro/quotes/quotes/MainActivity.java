@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("ResourceType")
     protected void setupToolbar() {
          toolbar =  findViewById(R.id.toolbar);
-       /* dot_logout = findViewById(R.id.dot_logout);
+        dot_logout = findViewById(R.id.dot_logout);
         dot_logout.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("RtlHardcoded")
             @Override
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        });*/
+        });
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_menu_white);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
