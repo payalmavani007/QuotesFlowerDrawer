@@ -18,12 +18,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
        <FrameLayout
            android:id="@+id/frame_containt"
            android:layout_width="match_parent"
            android:layout_height="match_parent">
 
        </FrameLayout>
+
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
@@ -33,6 +35,7 @@
                 android:id="@+id/toolbar"
                 layout="@layout/view_feed_toolbar"/>
         </android.support.design.widget.AppBarLayout>
+
     </android.support.design.widget.CoordinatorLayout>
 
 

@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -75,18 +76,27 @@ public class SlidingImage_Adapter extends PagerAdapter {
         final ImageView download = (ImageView) imageLayout
                 .findViewById(R.id.download);
 
-        final ImageView imageView = (ImageView) imageLayout
+       /* final ImageView imageView = (ImageView) imageLayout
                 .findViewById(R.id.image);
+*/
+       final  ImageView imageView = imageLayout.findViewById(R.id.image);
 
         final TextView txtQuteTex = (TextView) imageLayout
                 .findViewById(R.id.txtQuteTex);
 
-/*
-        Glide.with(context).load(Config.URL + data.get(position).getQuotes_image())
+     /*   Glide.with(context).load(Config.URL + data.get(position).getQuotes_image())
                 .thumbnail(0.5f)
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);*/
+        Glide.with(context)
+                .load(data.get(position).getQuotes_image())
+                .into(imageView);
+    /*    Picasso.get().load(data.get(position) + data.get(position).getQuotes_image())
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_background)
+                .into(imageView);
+*/
         Log.e(TAG, "instantiateItem: " + data.get(position) + data.get(position).getQuotes_image());
         txtQuteTex.setText(data.get(position).getQuotes_name());
         view.addView(imageLayout, 0);

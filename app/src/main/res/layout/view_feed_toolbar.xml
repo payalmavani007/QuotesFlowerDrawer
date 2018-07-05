@@ -9,5 +9,12 @@
     app:layout_scrollFlags="scroll|enterAlways"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+    <ImageView
+        android:id="@+id/dot_logout"
+        android:src="@drawable/ic_action_overflow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="right"
+        />
 
 </android.support.v7.widget.Toolbar>
