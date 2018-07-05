@@ -24,9 +24,10 @@ import android.widget.Toast;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
+import quotes.sau.pro.quotes.quotes.util.Constant;
+
 public class MainActivity extends AppCompatActivity {
     private FrameLayout frameLayout;
-    private FlowingDrawer mDrawer;
     Toolbar toolbar;
     ImageView logout;
     ListView lv,lvdot;
@@ -37,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         frameLayout =  findViewById(R.id.frame_containt);
-        mDrawer =  findViewById(R.id.drawerlayout);
-        mDrawer =  findViewById(R.id.drawerlayout);
-        mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
+        Constant.mDrawer =  findViewById(R.id.drawerlayout);
+        Constant.mDrawer =  findViewById(R.id.drawerlayout);
+        Constant.mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
         setupToolbar();
         setupMenu();
     }
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDrawer.toggleMenu();
+                Constant.mDrawer.toggleMenu();
             }
         });
     }
@@ -103,9 +104,18 @@ public class MainActivity extends AppCompatActivity {
             fm.beginTransaction().add(R.id.id_container_menu, mMenuFragment).commit();
         }
 
+<<<<<<< HEAD
         mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
         mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
         mDrawer.setOnDrawerStateChangeListener(new ElasticDrawer.OnDrawerStateChangeListener() {
+=======
+
+
+
+        Constant.mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
+        Constant.mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
+        Constant.mDrawer.setOnDrawerStateChangeListener(new ElasticDrawer.OnDrawerStateChangeListener() {
+>>>>>>> 6eeb3fe243dedb98d64b1d1b33a38776a8a082fa
             @Override
             public void onDrawerStateChange(int oldState, int newState) {
                 if (newState == ElasticDrawer.STATE_CLOSED) {
@@ -122,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed () {
-        if (mDrawer.isMenuVisible()) {
-            mDrawer.closeMenu();
+        if ( Constant.mDrawer.isMenuVisible()) {
+            Constant.mDrawer.closeMenu();
         } else {
             super.onBackPressed();
         }

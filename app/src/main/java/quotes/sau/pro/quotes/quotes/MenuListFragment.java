@@ -27,6 +27,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import quotes.sau.pro.quotes.quotes.util.Constant;
+
 import static android.content.Context.MODE_PRIVATE;
 
 
@@ -135,6 +137,7 @@ public class MenuListFragment extends Fragment {
                 }
                 if (fragment != null)
                 {
+                    Constant.mDrawer.closeMenu();
                     FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.frame_containt,fragment);
                     fragmentTransaction.commit();

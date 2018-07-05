@@ -89,8 +89,13 @@ public class SlidingImage_Adapter extends PagerAdapter {
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);*/
-        Glide.with(context)
+    /*    Glide.with(context)
                 .load(data.get(position).getQuotes_image())
+                .into(imageView);*/
+        Glide.with(context).load("http://rajviinfotech.in/quotes/public/uploads/" + data.get(position).getQuotes_image())
+                .thumbnail(0.5f)
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
     /*    Picasso.get().load(data.get(position) + data.get(position).getQuotes_image())
                 .placeholder(R.drawable.ic_launcher_background)
