@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "quotes.sau.pro.quotes"
+        applicationId "quotes.pro.sau.quotes"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1

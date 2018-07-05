@@ -43,11 +43,17 @@ public class MainActivity extends AppCompatActivity {
         Constant.mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
         setupToolbar();
         setupMenu();
+
+     /*   android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        Fragment fragment = new HomeFragment();
+        fragmentTransaction.replace(R.id.frame_containt,fragment);
+        fragmentTransaction.commit();*/
+
     }
 
     @SuppressLint("ResourceType")
     protected void setupToolbar() {
-         toolbar =  findViewById(R.id.toolbar);
+        toolbar =  findViewById(R.id.toolbar);
         dot_logout = findViewById(R.id.dot_logout);
         dot_logout.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("RtlHardcoded")
@@ -92,30 +98,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Constant.mDrawer.toggleMenu();
             }
+
         });
     }
 
     private void setupMenu() {
         FragmentManager fm = getSupportFragmentManager();
         MenuListFragment mMenuFragment = (MenuListFragment) fm.findFragmentById(R.id.id_container_menu);
-
         if (mMenuFragment == null) {
             mMenuFragment = new MenuListFragment();
             fm.beginTransaction().add(R.id.id_container_menu, mMenuFragment).commit();
         }
 
-<<<<<<< HEAD
-        mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
-        mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
-        mDrawer.setOnDrawerStateChangeListener(new ElasticDrawer.OnDrawerStateChangeListener() {
-=======
-
-
-
         Constant.mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
         Constant.mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
         Constant.mDrawer.setOnDrawerStateChangeListener(new ElasticDrawer.OnDrawerStateChangeListener() {
->>>>>>> 6eeb3fe243dedb98d64b1d1b33a38776a8a082fa
             @Override
             public void onDrawerStateChange(int oldState, int newState) {
                 if (newState == ElasticDrawer.STATE_CLOSED) {
