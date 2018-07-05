@@ -16,7 +16,7 @@ public class Author_SwiipeModel {
     private String msg;
     private String image_url;
     private List<DataBean> data;
-
+//fjjf
     public int getStatus() {
         return status;
     }
