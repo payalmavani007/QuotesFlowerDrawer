@@ -42,12 +42,6 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
         setupToolbar();
         setupMenu();
-        
-     /*   android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        Fragment fragment = new HomeFragment();
-        fragmentTransaction.replace(R.id.frame_containt,fragment);
-        fragmentTransaction.commit();*/
-
     }
 
     @SuppressLint("ResourceType")
@@ -97,20 +91,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mDrawer.toggleMenu();
             }
-
         });
     }
 
     private void setupMenu() {
         FragmentManager fm = getSupportFragmentManager();
         MenuListFragment mMenuFragment = (MenuListFragment) fm.findFragmentById(R.id.id_container_menu);
+
         if (mMenuFragment == null) {
             mMenuFragment = new MenuListFragment();
             fm.beginTransaction().add(R.id.id_container_menu, mMenuFragment).commit();
         }
-
-
-
 
         mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
         mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
