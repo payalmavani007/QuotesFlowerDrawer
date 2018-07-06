@@ -1,4 +1,4 @@
-package quotes.sau.pro.quotes.quotes;
+package quotes.sau.pro.quotes;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

@@ -1,7 +1,9 @@
-package quotes.sau.pro.quotes.quotes;
+package quotes.sau.pro.quotes;
 
 import android.app.Application;
 import android.content.Context;
+
+
 
 public class Quotes extends Application {
       private static Quotes mInstance;

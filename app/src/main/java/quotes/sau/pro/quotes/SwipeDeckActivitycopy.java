@@ -1,4 +1,4 @@
-package quotes.sau.pro.quotes.quotes;
+package quotes.sau.pro.quotes;
 
 import android.annotation.SuppressLint;
 import android.content.ClipboardManager;
@@ -41,12 +41,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import quotes.sau.pro.quotes.quotes.model.Category_SwiipeModel;
-import quotes.sau.pro.quotes.quotes.retrofit.ApiClient;
-import quotes.sau.pro.quotes.quotes.retrofit.ApiInterface;
+
+import quotes.sau.pro.quotes.model.Category_SwiipeModel;
+import quotes.sau.pro.quotes.quotes.R;
+import quotes.sau.pro.quotes.retrofit.ApiClient;
+import quotes.sau.pro.quotes.retrofit.ApiInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 import static java.sql.Types.NULL;
 

@@ -1,4 +1,4 @@
-package quotes.sau.pro.quotes.quotes;
+package quotes.sau.pro.quotes;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,9 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import quotes.sau.pro.quotes.quotes.R;
+
 
 class AutListAdapter extends RecyclerView.Adapter<AutListAdapter.ViewHolder> {
     Context context;

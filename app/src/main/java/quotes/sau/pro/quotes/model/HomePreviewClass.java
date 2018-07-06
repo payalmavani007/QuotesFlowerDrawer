@@ -1,4 +1,4 @@
-package quotes.sau.pro.quotes.quotes.model;
+package quotes.sau.pro.quotes.model;
 
 import java.util.List;
 

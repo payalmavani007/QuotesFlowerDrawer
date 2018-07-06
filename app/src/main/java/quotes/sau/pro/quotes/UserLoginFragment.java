@@ -1,4 +1,4 @@
-package quotes.sau.pro.quotes.quotes;
+package quotes.sau.pro.quotes;
 
 
 import android.content.SharedPreferences;
@@ -30,6 +30,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+import quotes.sau.pro.quotes.quotes.R;
 
 import static android.content.Context.MODE_PRIVATE;
 

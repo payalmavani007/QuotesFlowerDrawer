@@ -1,4 +1,4 @@
-package quotes.sau.pro.quotes.quotes;
+package quotes.sau.pro.quotes;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,9 +11,11 @@ import android.widget.RelativeLayout;
 
 import org.json.JSONArray;
 
-import quotes.sau.pro.quotes.quotes.model.HomePreviewClass;
-import quotes.sau.pro.quotes.quotes.retrofit.ApiClient;
-import quotes.sau.pro.quotes.quotes.retrofit.ApiInterface;
+import quotes.sau.pro.quotes.model.HomePreviewClass;
+import quotes.sau.pro.quotes.quotes.R;
+
+import quotes.sau.pro.quotes.retrofit.ApiClient;
+import quotes.sau.pro.quotes.retrofit.ApiInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 

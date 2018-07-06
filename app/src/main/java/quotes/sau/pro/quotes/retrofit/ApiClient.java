@@ -1,4 +1,4 @@
-package quotes.sau.pro.quotes.quotes.retrofit;
+package quotes.sau.pro.quotes.retrofit;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

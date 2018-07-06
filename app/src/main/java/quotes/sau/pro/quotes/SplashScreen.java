@@ -1,10 +1,12 @@
-package quotes.sau.pro.quotes.quotes;
+package quotes.sau.pro.quotes;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+
+import quotes.sau.pro.quotes.quotes.R;
 
 public class SplashScreen extends AppCompatActivity {
     private Handler mHandler = new Handler();

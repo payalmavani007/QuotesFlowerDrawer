@@ -1,4 +1,4 @@
-package quotes.sau.pro.quotes.quotes;
+package quotes.sau.pro.quotes;
 
 
 import android.annotation.SuppressLint;
@@ -23,6 +23,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
+
+
+import quotes.sau.pro.quotes.quotes.R;
 
 import quotes.sau.pro.quotes.quotes.util.Constant;
 

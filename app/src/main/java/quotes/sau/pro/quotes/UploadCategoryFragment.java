@@ -1,4 +1,4 @@
-package quotes.sau.pro.quotes.quotes;
+package quotes.sau.pro.quotes;
 
 import android.app.Dialog;
 import android.content.SharedPreferences;
@@ -36,6 +36,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import quotes.sau.pro.quotes.quotes.R;
 
 import static android.content.Context.MODE_PRIVATE;
 

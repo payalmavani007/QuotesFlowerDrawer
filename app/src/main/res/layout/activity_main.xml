@@ -2,29 +2,31 @@
 <com.mxn.soul.flowingdrawer_core.FlowingDrawer xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerlayout"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgrouncolor"
     android:clipChildren="false"
     android:clipToPadding="false"
-    app:edPosition="1"
+    app:edMenuBackground="#FFFFFF"
     app:edMenuSize="260dp"
-    app:edMenuBackground="#dddddd"
-    android:id="@+id/drawerlayout"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    app:edPosition="1">
+
 
     <!--content-->
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/backgrouncolor"
         android:orientation="vertical">
 
-       <FrameLayout
-           android:id="@+id/frame_containt"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent">
+        <FrameLayout
+            android:id="@+id/frame_containt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-       </FrameLayout>
+        </FrameLayout>
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -33,7 +35,7 @@
 
             <include
                 android:id="@+id/toolbar"
-                layout="@layout/view_feed_toolbar"/>
+                layout="@layout/view_feed_toolbar" />
         </android.support.design.widget.AppBarLayout>
 
     </android.support.design.widget.CoordinatorLayout>
@@ -43,12 +45,14 @@
     <com.mxn.soul.flowingdrawer_core.FlowingMenuLayout
         android:id="@+id/menulayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/backgroundshadow">
 
         <FrameLayout
             android:id="@+id/id_container_menu"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:background="@drawable/backgroundshadow" />
 
     </com.mxn.soul.flowingdrawer_core.FlowingMenuLayout>
 

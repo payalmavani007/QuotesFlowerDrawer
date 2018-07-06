@@ -1,5 +1,5 @@
 
-package quotes.sau.pro.quotes.quotes;
+package quotes.sau.pro.quotes;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,6 +26,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import quotes.sau.pro.quotes.quotes.R;
 
 import quotes.sau.pro.quotes.quotes.util.Constant;
 
@@ -55,7 +57,7 @@ public class MenuListFragment extends Fragment {
                 false);
         RelativeLayout relativeLayout = view.findViewById(R.id.relative);
 
-        ivMenuUserProfilePhoto =  view.findViewById(R.id.ivMenuUserProfilePhoto);
+        ivMenuUserProfilePhoto = view.findViewById(R.id.ivMenuUserProfilePhoto);
         NavigationView vNavigation = view.findViewById(R.id.vNavigation);
         vNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -63,20 +65,13 @@ public class MenuListFragment extends Fragment {
 
                 int id = menuItem.getItemId();
                 Fragment fragment = null;
-                if (id == R.id.home)
-                {
+                if (id == R.id.home) {
                     fragment = new HomeFragment();
-                }
-                else if (id == R.id.categories)
-                {
+                } else if (id == R.id.categories) {
                     fragment = new CategoryFragment();
-                }
-                else if (id == R.id.author)
-                {
+                } else if (id == R.id.author) {
                     fragment = new AuthorFragment();
-                }
-                else if (id == R.id.user_login)
-                {
+                } else if (id == R.id.user_login) {
                     final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                     SharedPreferences preferences = getContext().getSharedPreferences("status", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
@@ -127,29 +122,26 @@ public class MenuListFragment extends Fragment {
                     } else {
 
 
-
                         fragmentTransaction.replace(R.id.frame_containt, new UserLoginFragment()).addToBackStack("tag").commit();
                         return true;
                     }
 
 
-                        fragment = new UserLoginFragment();
+                    fragment = new UserLoginFragment();
                 }
-                if (fragment != null)
-                {
+                if (fragment != null) {
                     Constant.mDrawer.closeMenu();
                     FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.frame_containt,fragment);
+                    fragmentTransaction.replace(R.id.frame_containt, fragment);
                     fragmentTransaction.commit();
                 }
 
                 return true;
             }
-        }) ;
+        });
 
-        return  view ;
+        return view;
     }
-
 
 
 }

@@ -1,9 +1,9 @@
-package quotes.sau.pro.quotes.quotes.retrofit;
+package quotes.sau.pro.quotes.retrofit;
 
-import quotes.sau.pro.quotes.quotes.Author_SwiipeModel;
-import quotes.sau.pro.quotes.quotes.model.Category_SwiipeModel;
-import quotes.sau.pro.quotes.quotes.model.HomePreviewClass;
-import quotes.sau.pro.quotes.quotes.model.SelectCategoryDataModel;
+import quotes.sau.pro.quotes.Author_SwiipeModel;
+import quotes.sau.pro.quotes.model.Category_SwiipeModel;
+import quotes.sau.pro.quotes.model.HomePreviewClass;
+import quotes.sau.pro.quotes.model.SelectCategoryDataModel;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

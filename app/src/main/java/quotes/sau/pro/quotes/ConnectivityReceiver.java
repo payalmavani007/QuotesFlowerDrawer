@@ -1,4 +1,4 @@
-package quotes.sau.pro.quotes.quotes;
+package quotes.sau.pro.quotes;
 
 /**
  * Created by Lincoln on 18/03/16.
@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+
+
 
 public class ConnectivityReceiver
         extends BroadcastReceiver {
