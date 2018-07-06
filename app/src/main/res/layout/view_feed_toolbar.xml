@@ -5,14 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     app:elevation="@dimen/default_elevation"
-    android:background="#f7931f"
-    app:layout_scrollFlags="scroll|enterAlways">
+    android:background="#f7931f">
 
-    <ImageView
+  <!--  <ImageView
         android:id="@+id/dot_logout"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="right"
-        android:src="@drawable/ic_action_overflow" />
+        android:src="@drawable/ic_action_overflow" />-->
 
 </android.support.v7.widget.Toolbar>

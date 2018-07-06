@@ -6,7 +6,6 @@
 
         android:layout_weight="1"
         android:id="@+id/lvdot"
-
         android:dividerHeight="4dip"
         android:background="@drawable/line_divider"
         android:layout_width="wrap_content"
