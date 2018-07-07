@@ -4,17 +4,14 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
     app:elevation="@dimen/default_elevation"
-    app:layout_scrollFlags="scroll|enterAlways"
-    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    android:background="#f7931f">
 
-    <ImageView
+  <!--  <ImageView
         android:id="@+id/dot_logout"
-        android:src="@drawable/ic_action_overflow"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="right"
-        />
+        android:src="@drawable/ic_action_overflow" />-->
 
 </android.support.v7.widget.Toolbar>

@@ -2,7 +2,7 @@
     <group android:id="@+id/menu_group_1">
         <item
             android:id="@+id/home"
-            android:icon="@drawable/home"
+            android:icon="@drawable/ic_home_black_24dp"
             android:title="My Dashboard" />
         <item
             android:id="@+id/categories"
@@ -15,7 +15,7 @@
 
         <item
             android:id="@+id/user_login"
-            android:icon="@drawable/auth"
+            android:icon="@drawable/ic_user_24dp"
             android:title="User Login" />
 
     </group>

@@ -1,51 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/backgrouncolor"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    android:background="@drawable/backgrouncolor">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="vertical">
-        <TextView
 
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="65dp"
+            android:gravity="center_horizontal"
             android:text="Login"
             android:textColor="#000000"
-            android:layout_marginTop="65dp"
-            android:layout_marginLeft="20dp"
-            android:visibility="gone"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="30dp"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:textStyle="bold"
             android:textSize="30dp"
-            />
+            android:textStyle="bold"
+            android:visibility="gone" />
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="75dp"
             android:theme="@style/TextLabel">
+
             <EditText
                 android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="E-mail"
-                android:textSize="15dp"
                 android:inputType="textEmailAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textSize="15dp" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:theme="@style/TextLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/TextLabel"
             app:passwordToggleEnabled="true">
 
             <android.support.design.widget.TextInputEditText
@@ -54,28 +57,35 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Password"
-                android:textSize="15dp"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textSize="15dp" />
         </android.support.design.widget.TextInputLayout>
+
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:text="login"
-            android:textSize="15sp"
+            android:textSize="15sp" />
 
-            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="OR"
+            android:textColor="@color/colorBlack"
+            android:textSize="25sp" />
+
+        <Button
             android:id="@+id/register_here"
-            android:text="Register Here"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:textSize="18dp"
-            android:gravity="center_horizontal"
-            android:textColor="#3399FF"
-            />
+            android:text="Register Here"
+            android:textSize="15sp" />
+
+
     </LinearLayout>
 
 </FrameLayout>

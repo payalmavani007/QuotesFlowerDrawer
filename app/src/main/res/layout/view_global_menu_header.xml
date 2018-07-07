@@ -4,17 +4,19 @@
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
     android:clickable="true">
+
     <LinearLayout
         android:id="@+id/vGlobalMenuHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="20dp">
 
         <ImageView
             android:id="@+id/ivMenuUserProfilePhoto"
             android:layout_width="@dimen/global_menu_avatar_size"
-            android:src="@drawable/ic_heart_outline_grey"
             android:layout_height="@dimen/global_menu_avatar_size"
-            android:layout_margin="12dp" />
+            android:layout_margin="12dp"
+            android:src="@drawable/ic_heart_outline_grey" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -22,7 +24,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:text="Quotes"
-            android:textColor="#2d5d82"
+            android:textColor="#000"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -31,9 +33,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="16dp"
-            android:visibility="gone"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_global_menu_search" />
+            android:src="@drawable/ic_global_menu_search"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -41,5 +43,5 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="bottom"
-        android:background="#dddddd" />
+        android:background="#000" />
 </FrameLayout>
