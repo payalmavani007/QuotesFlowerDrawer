@@ -2,6 +2,10 @@ package quotes.pro.sau.quotes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,23 +21,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-
-
 class AutListAdapter extends RecyclerView.Adapter<AutListAdapter.ViewHolder> {
     Context context;
     JSONArray array;
-    String id,quotes_name;
+    String id, quotes_name;
 
-    public AutListAdapter(Context context, JSONArray array, String id)
-    {
+    public AutListAdapter(Context context, JSONArray array, String id) {
         this.context = context;
         this.array = array;
         this.id = id;
     }
 
     @Override
-    public AutListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public AutListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.list, parent, false);
         return new AutListAdapter.ViewHolder(view);
     }
@@ -42,10 +42,10 @@ class AutListAdapter extends RecyclerView.Adapter<AutListAdapter.ViewHolder> {
     public void onBindViewHolder(AutListAdapter.ViewHolder holder, final int position) {
 
         try {
-            final JSONObject o=array.getJSONObject(position);
-            Picasso.get().load("http://rajviinfotech.in/quotes/public/uploads/"+o.getString("quotes_image")).into(holder.imageView);
+            final JSONObject o = array.getJSONObject(position);
+            Picasso.get().load("http://rajviinfotech.in/quotes/public/uploads/" + o.getString("quotes_image")).into(holder.imageView);
             holder.textView.setText(o.getString("quotes_name"));
-            Log.e("Tag", "onBindViewHolder: "+o.getString("id") );
+            Log.e("Tag", "onBindViewHolder: " + o.getString("id"));
             holder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -59,18 +59,33 @@ class AutListAdapter extends RecyclerView.Adapter<AutListAdapter.ViewHolder> {
                         e.printStackTrace();
                     }
                     context.startActivity(intent);*/
-
-
+                    Bundle bundle = new Bundle();
+                    Fragment fragment = new SwipeDeckActivitycopyAuthor();
+                    bundle.putString("id", id);
                     try {
-                        Intent intent = new Intent(context, SwipeDeckActivitycopyAuthor.class);
-                        intent.putExtra("id", id );
-                        intent.putExtra("quotes_name", quotes_name);
-                        intent.putExtra("pos",position);
-                        intent.putExtra("AuthorListId",o.getString("id"));
-                        context.startActivity(intent);
+
+                        bundle.putString("quotes_name", o.getString("quotes_name"));
+                        bundle.putInt("pos", position);
+                        bundle.putString("AuthorListId", o.getString("id"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    FragmentManager fm = ((MainActivity) context).getSupportFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.add(R.id.frame_containt, fragment);
+                    ft.commit();
+                    fragment.setArguments(bundle);
+
+                   /* try {
+                        Intent intent = new Intent(context, SwipeDeckActivitycopyAuthor.class);
+                        intent.putExtra("id", id);
+                        intent.putExtra("quotes_name", quotes_name);
+                        intent.putExtra("pos", position);
+                        intent.putExtra("AuthorListId", o.getString("id"));
+                        context.startActivity(intent);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }*/
 
                 }
             });
@@ -80,18 +95,15 @@ class AutListAdapter extends RecyclerView.Adapter<AutListAdapter.ViewHolder> {
     }
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return array.length();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder
-    {
+    class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
 
-        public ViewHolder(View itemView)
-        {
+        public ViewHolder(View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.text);
             imageView = itemView.findViewById(R.id.bcgrnd_img);

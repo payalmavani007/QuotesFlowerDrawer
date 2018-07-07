@@ -2,6 +2,10 @@ package quotes.pro.sau.quotes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-
 class RecyclarAdapter extends RecyclerView.Adapter<RecyclarAdapter.ViewHolder> {
 
     Context context;
@@ -26,8 +29,8 @@ class RecyclarAdapter extends RecyclerView.Adapter<RecyclarAdapter.ViewHolder> {
 
 
     private static final String TAG = "RecyclarAdapter";
-    public RecyclarAdapter(Context context, JSONArray array, String id)
-    {
+
+    public RecyclarAdapter(Context context, JSONArray array, String id) {
         this.context = context;
         this.array = array;
         this.id = id;
@@ -46,7 +49,7 @@ class RecyclarAdapter extends RecyclerView.Adapter<RecyclarAdapter.ViewHolder> {
         // final Homelist_model grid_model = grid_models.get(position);
         try {
             final JSONObject o = array.getJSONObject(position);
-            Picasso.get().load("http://rajviinfotech.in/quotes/public/uploads/"+o.getString("quotes_image"))
+            Picasso.get().load("http://rajviinfotech.in/quotes/public/uploads/" + o.getString("quotes_image"))
                     .placeholder(R.drawable.ic_launcher_background)
                     .error(R.drawable.ic_launcher_background)
                     .into(holder.imageView);
@@ -54,19 +57,35 @@ class RecyclarAdapter extends RecyclerView.Adapter<RecyclarAdapter.ViewHolder> {
             holder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, PreviewViewPager.class);
+
+
+                    Bundle bundle = new Bundle();
+                    Fragment fragment = new PreviewViewPager();
+
+                    try {
+                        bundle.putString("SelectedId", o.getString("id"));
+                        bundle.putString("quotes", o.getString("quotes"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    FragmentManager fm = ((MainActivity) context).getSupportFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.add(R.id.frame_containt, fragment);
+                    ft.commit();
+                    fragment.setArguments(bundle);
+                  /*  Intent intent = new Intent(context, PreviewViewPager.class);
 
 
                     try {
-                        intent.putExtra("SelectedId",o.getString("id"));
-                        intent.putExtra("quotes",o.getString("quotes"));
+                        intent.putExtra("SelectedId", o.getString("id"));
+                        intent.putExtra("quotes", o.getString("quotes"));
 
-                        Log.e(TAG, "selctedid===: " +id);
+                        Log.e(TAG, "selctedid===: " + id);
                         context.startActivity(intent);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                    }
+                    }*/
 
 
                 }
@@ -84,13 +103,11 @@ class RecyclarAdapter extends RecyclerView.Adapter<RecyclarAdapter.ViewHolder> {
         return array.length();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder
-    {
+    class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView textView;
 
-        public ViewHolder(View itemView)
-        {
+        public ViewHolder(View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.text);
             imageView = itemView.findViewById(R.id.bcgrnd_img);

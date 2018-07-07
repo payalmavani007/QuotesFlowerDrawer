@@ -3,21 +3,25 @@ package quotes.pro.sau.quotes;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.FragmentTransaction;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -25,7 +29,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -43,7 +49,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ConnectivityReceiver.ConnectivityReceiverListener {
     private FrameLayout frameLayout;
     Toolbar toolbar;
     ImageView logout;
@@ -54,16 +60,59 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private String android_id;
     private static final String TAG = "MainActivity";
+    ImageView imgHome, imgCategoies, imgAuthor, imgLogin;
+    TextView txtHome, txtCategoies, txtAuthor, txtLogin;
+    LinearLayout clickHome, clickCategoies, clickAuthor, clickLogin;
+    FragmentTransaction tx;
+    String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initialization();
+
+    }
+
+    private void initialization() {
+        checkConnection();
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("status", MODE_PRIVATE);
+        Constant.mLoginId = pref.getString("id", "");
         frameLayout = findViewById(R.id.frame_containt);
         Constant.mDrawer = findViewById(R.id.drawerlayout);
         Constant.mDrawer = findViewById(R.id.drawerlayout);
+        Constant.mToolbar = (Toolbar) findViewById(R.id.toolbar);
         Constant.mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
         android_id = Settings.Secure.getString(getContentResolver(),
                 Settings.Secure.ANDROID_ID);
+        tx = getSupportFragmentManager().beginTransaction();
+        tx.replace(R.id.frame_containt, new HomeFragment());
+        tx.commit();
+        imgHome = (ImageView) findViewById(R.id.imgeHome);
+        imgCategoies = (ImageView) findViewById(R.id.imgCategoies);
+        imgAuthor = (ImageView) findViewById(R.id.imgAuthor);
+        imgLogin = (ImageView) findViewById(R.id.imgLogin);
+        txtHome = (TextView) findViewById(R.id.txtHome);
+        imgAuthor.setColorFilter(getResources().getColor(R.color.colorBlack));
+        Constant.mToolbar.setTitle("Home");
+
+        txtCategoies = (TextView) findViewById(R.id.txtCategoies);
+        txtAuthor = (TextView) findViewById(R.id.txtAuthor);
+        txtLogin = (TextView) findViewById(R.id.txtLogin);
+        clickHome = (LinearLayout) findViewById(R.id.clickHome);
+        clickCategoies = (LinearLayout) findViewById(R.id.clickAuthor);
+        clickAuthor = (LinearLayout) findViewById(R.id.clickCategories);
+        clickLogin = (LinearLayout) findViewById(R.id.clickLogin);
+        imgHome.setClickable(false);
+        imgLogin.setClickable(false);
+        imgCategoies.setClickable(false);
+        imgAuthor.setClickable(false);
+        clickCategoies.setOnClickListener(this);
+        clickAuthor.setOnClickListener(this);
+        clickLogin.setOnClickListener(this);
+        clickHome.setOnClickListener(this);
+        txtHome.setTextColor(getResources().getColor(R.color.colorwhite));
+        imgHome.setColorFilter(getResources().getColor(R.color.colorwhite));
 
         refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.e(TAG, "onCreate: " + refreshedToken);
@@ -94,13 +143,125 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+    }
 
-     /*   android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        Fragment fragment = new HomeFragment();
-        fragmentTransaction.replace(R.id.frame_containt,fragment);
-        fragmentTransaction.commit();*/
+    private void checkConnection() {
+        boolean isConnected = ConnectivityReceiver.isConnected();
+        showSnack(isConnected);
+    }
+
+    private void showSnack(boolean isConnected) {
+        String message = null;
+        int color;
+        if (!isConnected) {
+
+            message = "Sorry! Not connected to internet";
+            color = Color.RED;
+            Snackbar snackbar = Snackbar
+                    .make(findViewById(R.id.fab), message, Snackbar.LENGTH_LONG);
+
+            View sbView = snackbar.getView();
+            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(color);
+            snackbar.show();
+        }
+
 
     }
+
+    @Override
+    public void onClick(View view) {
+        Fragment fragment = null;
+        switch (view.getId()) {
+            case R.id.clickHome:
+                checkConnection();
+                Constant.mToolbar.setTitle("Home");
+                homeClickChangeColor();
+                fragment = new HomeFragment();
+
+                break;
+            case R.id.clickCategories:
+                checkConnection();
+                Constant.mToolbar.setTitle("Category");
+                CategoriesClickchangeColor();
+                fragment = new CategoryFragment();
+
+                break;
+            case R.id.clickAuthor:
+                checkConnection();
+                Constant.mToolbar.setTitle("Author");
+                authorClickChangeColor();
+                fragment = new AuthorFragment();
+                break;
+            case R.id.clickLogin:
+                checkConnection();
+                Constant.mToolbar.setTitle("Login");
+                loginClickChangeColor();
+                if (Constant.mLoginId.equals("")) {
+                    fragment = new UserLoginFragment();
+                } else {
+                    fragment = new UploadCategoryFragment();
+                }
+                break;
+        }
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_containt, fragment);
+            fragmentTransaction.commit();
+        }
+    }
+
+    private void loginClickChangeColor() {
+        imgHome.setColorFilter(getResources().getColor(R.color.colorBlack));
+        imgCategoies.setColorFilter(getResources().getColor(R.color.colorBlack));
+        imgAuthor.setColorFilter(getResources().getColor(R.color.colorBlack));
+        imgLogin.setColorFilter(getResources().getColor(R.color.colorwhite));
+
+        txtHome.setTextColor(getResources().getColor(R.color.colorBlack));
+        txtCategoies.setTextColor(getResources().getColor(R.color.colorBlack));
+        txtAuthor.setTextColor(getResources().getColor(R.color.colorBlack));
+        txtLogin.setTextColor(getResources().getColor(R.color.colorwhite));
+    }
+
+    private void authorClickChangeColor() {
+        imgHome.setColorFilter(getResources().getColor(R.color.colorBlack));
+        imgCategoies.setColorFilter(getResources().getColor(R.color.colorBlack));
+        imgAuthor.setColorFilter(getResources().getColor(R.color.colorwhite));
+        imgLogin.setColorFilter(getResources().getColor(R.color.colorBlack));
+
+        txtHome.setTextColor(getResources().getColor(R.color.colorBlack));
+        txtCategoies.setTextColor(getResources().getColor(R.color.colorBlack));
+        txtAuthor.setTextColor(getResources().getColor(R.color.colorwhite));
+        txtLogin.setTextColor(getResources().getColor(R.color.colorBlack));
+    }
+
+    private void CategoriesClickchangeColor() {
+        imgHome.setColorFilter(getResources().getColor(R.color.colorBlack));
+        imgCategoies.setColorFilter(getResources().getColor(R.color.colorwhite));
+        imgAuthor.setColorFilter(getResources().getColor(R.color.colorBlack));
+        imgLogin.setColorFilter(getResources().getColor(R.color.colorBlack));
+
+        txtHome.setTextColor(getResources().getColor(R.color.colorBlack));
+        txtCategoies.setTextColor(getResources().getColor(R.color.colorwhite));
+        txtAuthor.setTextColor(getResources().getColor(R.color.colorBlack));
+        txtLogin.setTextColor(getResources().getColor(R.color.colorBlack));
+    }
+
+    private void homeClickChangeColor() {
+        imgHome.setColorFilter(getResources().getColor(R.color.colorwhite));
+        imgCategoies.setColorFilter(getResources().getColor(R.color.colorBlack));
+        imgAuthor.setColorFilter(getResources().getColor(R.color.colorBlack));
+        imgLogin.setColorFilter(getResources().getColor(R.color.colorBlack));
+
+        txtHome.setTextColor(getResources().getColor(R.color.colorwhite));
+        txtCategoies.setTextColor(getResources().getColor(R.color.colorBlack));
+        txtAuthor.setTextColor(getResources().getColor(R.color.colorBlack));
+        txtLogin.setTextColor(getResources().getColor(R.color.colorBlack));
+
+    }
+
+
     private void tokenInsertApiCall() {
         apiService =
                 ApiClient.getClient().create(ApiInterface.class);
@@ -108,12 +269,12 @@ public class MainActivity extends AppCompatActivity {
         modelCall.enqueue(new Callback<InsertTokenModel>() {
             @Override
             public void onResponse(Call<InsertTokenModel> call, retrofit2.Response<InsertTokenModel> response) {
-              //  Log.e(TAG, "onResponse: "+response.body().getMsg());
+                //  Log.e(TAG, "onResponse: "+response.body().getMsg());
             }
 
             @Override
             public void onFailure(Call<InsertTokenModel> call, Throwable t) {
-                Log.e(TAG, "onFailure: " );
+                Log.e(TAG, "onFailure: ");
             }
         });
     }
@@ -138,6 +299,7 @@ public class MainActivity extends AppCompatActivity {
 
         // clear the notification area when the app is opened
         NotificationUtils.clearNotifications(getApplicationContext());
+        Quotes.getInstance().setConnectivityListener(this);
     }
 
     @Override
@@ -233,14 +395,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        Log.e(TAG, "onCreateOptionsMenu: " + id);
+        if (!Constant.mLoginId.equals("")) {
+            getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+
+        }
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_sign_out: {
-                // do your sign-out stuff
+                checkConnection();
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("status", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.clear();
+                editor.apply();
+                finish();
+                startActivity(getIntent());
                 break;
             }
-            // case blocks for other MenuItems (if any)
         }
-        return false;
+        return true;
+    }
+
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        showSnack(isConnected);
     }
 }

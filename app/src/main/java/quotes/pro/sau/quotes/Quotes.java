@@ -4,9 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 
-
 public class Quotes extends Application {
-      private static Quotes mInstance;
+    private static Quotes mInstance;
 
     @Override
     public void onCreate() {
@@ -22,9 +21,5 @@ public class Quotes extends Application {
     public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
         ConnectivityReceiver.connectivityReceiverListener = listener;
     }
-    /*@Override
-    protected void attachBaseContext(Context context) {
-        super.attachBaseContext(context);
-        MultiDex.install(this);
-    }*/
+
 }

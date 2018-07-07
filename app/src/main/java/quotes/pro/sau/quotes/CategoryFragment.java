@@ -21,12 +21,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import quotes.pro.sau.quotes.util.Constant;
 
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class CategoryFragment extends Fragment {
     RecyclerView category_recycler;
 
@@ -37,6 +34,7 @@ public class CategoryFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_category, container, false);
         category_recycler=view.findViewById(R.id.category_list);
         setHasOptionsMenu(true);
+        Constant.mToolbar.setTitle("Category");
         category_recycler.setLayoutManager(new GridLayoutManager(getContext(),3));
 
         String url="http://rajviinfotech.in/quotes/getdata_categories";

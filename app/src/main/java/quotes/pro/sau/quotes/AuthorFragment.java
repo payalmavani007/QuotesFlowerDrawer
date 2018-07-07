@@ -22,7 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+import quotes.pro.sau.quotes.util.Constant;
 
 
 /**
@@ -38,6 +38,7 @@ public class AuthorFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_author, container, false);
         category_recycler=view.findViewById(R.id.author_list);
         setHasOptionsMenu(true);
+        Constant.mToolbar.setTitle("Author");
         category_recycler.setLayoutManager(new GridLayoutManager(getContext(),3));
         String url="http://rajviinfotech.in/quotes/getdata_author";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

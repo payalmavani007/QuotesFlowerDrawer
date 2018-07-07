@@ -14,6 +14,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,14 +56,14 @@ import retrofit2.Response;
 import static java.sql.Types.NULL;
 
 
-public class SwipeDeckActivitycopy extends AppCompatActivity {
+public class SwipeDeckActivitycopy extends Fragment {
     private static final String TAG = "MainActivity";
     ApiInterface apiService;
     ArrayList<String> newData;
     String mImageUrl;
     ImageView imageViewShare;
     LinearLayout download1, copy;
-    String  position, mCatagoryId,mId;
+    String position, mCatagoryId, mId;
     RelativeLayout layout;
     FloatingActionButton fab;
     File folder;
@@ -70,13 +73,106 @@ public class SwipeDeckActivitycopy extends AppCompatActivity {
     Bitmap bitmap;
     RelativeLayout linearLayout;
     private SwipeDeck cardStack;
-    private Context context = this;
+    private Context context = getActivity();
     private SwipeDeckAdapterp adapter;
     private ArrayList<String> testData;
-
+    View mView;
 
     @SuppressLint({"InflateParams", "ResourceAsColor"})
+    @Nullable
     @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mView = inflater.inflate(R.layout.activity_swipe_deck, container, false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getActivity().getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(R.color.colorPrimary);
+        }
+
+
+        cardStack = (SwipeDeck) mView.findViewById(R.id.swipe_deck);
+        imageViewShare = mView.findViewById(R.id.share);
+        cardStack.setHardwareAccelerationEnabled(true);
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+        Bundle extras = getActivity().getIntent().getExtras();
+        // assert extras != null;
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            mId = bundle.getString("id");
+            mCatagoryId = bundle.getString("catagoryId");
+        }
+        //   mId = extras.getString("id");
+
+        // position = extras.getString("position");
+
+        //   mCatagoryId = extras.getString("catagoryId");
+
+        Log.e(TAG, "testing: " + mId + "---->" + mCatagoryId);
+        cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
+            @Override
+            public void cardSwipedLeft(int position) {
+                Log.i("MainActivity", "card was swiped left, position in adapter: " + position);
+            }
+
+            @Override
+            public void cardSwipedRight(int position) {
+                Log.i("MainActivity", "card was swiped right, position in adapter: " + position);
+            }
+
+            @Override
+            public void cardsDepleted() {
+                Log.i("MainActivity", "no more cards");
+                Call<Category_SwiipeModel> modelCall = apiService.getCategorySwipeList(mId, mCatagoryId);
+                modelCall.enqueue(new Callback<Category_SwiipeModel>() {
+                    @Override
+                    public void onResponse(Call<Category_SwiipeModel> call, Response<Category_SwiipeModel> response) {
+                        SwipeDeckAdapterp adapter = new SwipeDeckAdapterp(response.body().getData(), getActivity(), position);
+                        cardStack.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Category_SwiipeModel> call, Throwable t) {
+
+                    }
+                });
+            }
+
+
+            @Override
+            public void cardActionDown() {
+                Log.i(TAG, "cardActionDown");
+            }
+
+            @Override
+            public void cardActionUp() {
+                Log.i(TAG, "cardActionUp");
+            }
+
+        });
+
+        Call<Category_SwiipeModel> modelCall = apiService.getCategorySwipeList(mId, mCatagoryId);
+        modelCall.enqueue(new Callback<Category_SwiipeModel>() {
+            @Override
+            public void onResponse(Call<Category_SwiipeModel> call, Response<Category_SwiipeModel> response) {
+                //   mImageUrl = response.body().getImage_url();
+                SwipeDeckAdapterp adapter = new SwipeDeckAdapterp(response.body().getData(), getActivity(), position);
+                cardStack.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<Category_SwiipeModel> call, Throwable t) {
+
+            }
+        });
+        return mView;
+    }
+
+
+/*
+    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe_deck);
@@ -84,7 +180,8 @@ public class SwipeDeckActivitycopy extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(R.color.colorPrimary);  }
+            window.setStatusBarColor(R.color.colorPrimary);
+        }
 
 
         cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
@@ -92,14 +189,14 @@ public class SwipeDeckActivitycopy extends AppCompatActivity {
         cardStack.setHardwareAccelerationEnabled(true);
         apiService = ApiClient.getClient().create(ApiInterface.class);
         Bundle extras = getIntent().getExtras();
-       // assert extras != null;
+        // assert extras != null;
         mId = extras.getString("id");
 
         position = extras.getString("position");
 
-       mCatagoryId = extras.getString("catagoryId");
+        mCatagoryId = extras.getString("catagoryId");
 
-        Log.e(TAG, "testing: " +mId+"---->"+mCatagoryId );
+        Log.e(TAG, "testing: " + mId + "---->" + mCatagoryId);
         cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
             @Override
             public void cardSwipedLeft(int position) {
@@ -115,7 +212,7 @@ public class SwipeDeckActivitycopy extends AppCompatActivity {
             public void cardsDepleted() {
                 Log.i("MainActivity", "no more cards");
                 //Toast.makeText(context, "No More Crads.", Toast.LENGTH_SHORT).show();
-                Call<Category_SwiipeModel> modelCall = apiService.getCategorySwipeList(mId,mCatagoryId);
+                Call<Category_SwiipeModel> modelCall = apiService.getCategorySwipeList(mId, mCatagoryId);
                 modelCall.enqueue(new Callback<Category_SwiipeModel>() {
                     @Override
                     public void onResponse(Call<Category_SwiipeModel> call, Response<Category_SwiipeModel> response) {
@@ -145,7 +242,7 @@ public class SwipeDeckActivitycopy extends AppCompatActivity {
 
         });
 
-        Call<Category_SwiipeModel> modelCall = apiService.getCategorySwipeList(mId,mCatagoryId);
+        Call<Category_SwiipeModel> modelCall = apiService.getCategorySwipeList(mId, mCatagoryId);
         modelCall.enqueue(new Callback<Category_SwiipeModel>() {
             @Override
             public void onResponse(Call<Category_SwiipeModel> call, Response<Category_SwiipeModel> response) {
@@ -160,7 +257,7 @@ public class SwipeDeckActivitycopy extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 
     /* private void startShare() {
          Bitmap bitmap = viewToBitmap(imageView, imageView.getWidth(),imageView.getHeight());
@@ -244,7 +341,6 @@ public class SwipeDeckActivitycopy extends AppCompatActivity {
         private Context context;
 
 
-
         public SwipeDeckAdapterp(List<Category_SwiipeModel.DataBean> data, Context context, String position) {
             this.data = data;
             this.position = position;
@@ -289,8 +385,8 @@ public class SwipeDeckActivitycopy extends AppCompatActivity {
             copy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE)).setText(textView.getText().toString());
-                    Toast.makeText(SwipeDeckActivitycopy.this, "Quote Copied.", Toast.LENGTH_SHORT).show();
+                    ((ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE)).setText(textView.getText().toString());
+                    Toast.makeText(getActivity(), "Quote Copied.", Toast.LENGTH_SHORT).show();
                 }
             });
             download1.setOnClickListener(new View.OnClickListener() {
@@ -298,7 +394,7 @@ public class SwipeDeckActivitycopy extends AppCompatActivity {
                 public void onClick(View v) {
                     bitmap = getBitmap(linearLayout);
                     saveChart(bitmap, linearLayout.getMeasuredHeight(), linearLayout.getMeasuredWidth(), data.get(position).getQuotes_image());
-                    Toast.makeText(SwipeDeckActivitycopy.this, " Download Successfull.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), " Download Successfull.", Toast.LENGTH_SHORT).show();
                 }
             });
 

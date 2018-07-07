@@ -1,7 +1,12 @@
 package quotes.pro.sau.quotes;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,8 +20,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
 
 
 class CatListAdapter extends RecyclerView.Adapter<CatListAdapter.ViewHolder> {
@@ -58,8 +61,21 @@ class CatListAdapter extends RecyclerView.Adapter<CatListAdapter.ViewHolder> {
                         e.printStackTrace();
                     }
                     context.startActivity(intent);*/
-                    Intent intent = new Intent(context, SwipeDeckActivitycopy.class);
-                    intent.putExtra("id", id);
+                    Bundle bundle = new Bundle();
+                    Fragment fragment = new SwipeDeckActivitycopy();
+                    bundle.putString("id", id);
+                    try {
+                        bundle.putString("catagoryId", o.getString("id"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    FragmentManager fm = ((MainActivity) context).getSupportFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.add(R.id.frame_containt, fragment);
+                    ft.commit();
+                    fragment.setArguments(bundle);
+                    //   Intent intent = new Intent(context, SwipeDeckActivitycopy.class);
+                  /*  intent.putExtra("id", id);
                     Log.e(TAG, "hiiiiiiiiiii: "+id );
                     try {
                         intent.putExtra("catagoryId", o.getString("id"));
@@ -67,7 +83,7 @@ class CatListAdapter extends RecyclerView.Adapter<CatListAdapter.ViewHolder> {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    context.startActivity(intent);
+                    context.startActivity(intent);*/
                 }
             });
         } catch (JSONException e) {

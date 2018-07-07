@@ -22,7 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+import quotes.pro.sau.quotes.util.Constant;
 
 
 /**
@@ -49,6 +49,7 @@ public class AuthorListFragment extends Fragment {
         assert b1 != null;
          quotes_name=b1.getString("author_name");
         textView.setText(quotes_name);
+        Constant.mToolbar.setTitle(quotes_name);
         String url="http://rajviinfotech.in/quotes/selected_AuthorData?author_id="+id ;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

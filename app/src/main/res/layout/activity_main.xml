@@ -8,7 +8,7 @@
     android:background="@drawable/backgrouncolor"
     android:clipChildren="false"
     android:clipToPadding="false"
-    app:edMenuBackground="#FFFFFF"
+    app:edMenuBackground="#9c1247"
     app:edMenuSize="260dp"
     app:edPosition="1">
 
@@ -24,9 +24,116 @@
         <FrameLayout
             android:id="@+id/frame_containt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="55dp"
+            android:layout_marginTop="10dp">
 
         </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/fab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <LinearLayout
+                android:id="@+id/clickHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+
+                    android:id="@+id/imgeHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:src="@drawable/ic_home_black_24dp" />
+
+                <TextView
+                    android:id="@+id/txtHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Home" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/clickCategories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imgCategoies"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/cate" />
+
+                <TextView
+                    android:id="@+id/txtCategoies"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Categories" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/clickAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imgAuthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/auth" />
+
+                <TextView
+                    android:id="@+id/txtAuthor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Author" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/clickLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imgLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_user_24dp" />
+
+                <TextView
+                    android:id="@+id/txtLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Login" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -46,14 +153,17 @@
         android:id="@+id/menulayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/backgroundshadow">
+        android:background="@drawable/backgroundshadow"
+        android:elevation="4dp">
 
         <FrameLayout
+
             android:id="@+id/id_container_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/backgroundshadow" />
 
     </com.mxn.soul.flowingdrawer_core.FlowingMenuLayout>
+
 
 </com.mxn.soul.flowingdrawer_core.FlowingDrawer>

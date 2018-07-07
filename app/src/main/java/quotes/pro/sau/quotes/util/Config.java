@@ -2,8 +2,8 @@ package quotes.pro.sau.quotes.util;
 
 public class Config {
     // global topic to receive app wide push notifications
-    /*public static final String TOPIC_GLOBAL = "global";*/
-    public static final String TOPIC_GLOBAL = "individual";
+    public static final String TOPIC_GLOBAL = "global";
+   // public static final String TOPIC_GLOBAL = "individual";
 
     // broadcast receiver intent filters
     public static final String REGISTRATION_COMPLETE = "registrationComplete";

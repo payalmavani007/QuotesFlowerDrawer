@@ -46,7 +46,7 @@ public class SlidingImage_Adapter extends PagerAdapter {
 
     private static final String TAG = "SlidingImage_Adapter";
 
-    public SlidingImage_Adapter(PreviewViewPager context, List<HomePreviewClass.DataBean> data) {
+    public SlidingImage_Adapter(Context context, List<HomePreviewClass.DataBean> data) {
         this.context = context;
         this.data = data;
         this.inflater = LayoutInflater.from(context);

@@ -54,7 +54,6 @@ class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
                     try {
 
-
                         FragmentTransaction ft = fragmentManager.beginTransaction();
                         Bundle b = new Bundle();
                         b.putString("name", o.getString("id"));

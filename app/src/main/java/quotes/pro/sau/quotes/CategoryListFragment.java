@@ -25,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import quotes.pro.sau.quotes.util.Constant;
 
 
 /**
@@ -52,7 +53,7 @@ public class CategoryListFragment extends Fragment {
         category_name = b1.getString("category_name");
         header_text_categorylist.setText(category_name);
         Log.e(TAG, "onCreateView: "+ category_name);
-
+        Constant.mToolbar.setTitle(category_name);
         String url = "http://rajviinfotech.in/quotes/selected_CategoryData?category_id=" + id;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

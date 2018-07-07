@@ -14,6 +14,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,7 +52,7 @@ import retrofit2.Response;
 
 import static java.sql.Types.NULL;
 
-public class SwipeDeckActivitycopyAuthor extends AppCompatActivity {
+public class SwipeDeckActivitycopyAuthor extends Fragment {
 
     private static final String TAG = "SwipeDeckActivitycopyAuthor";
     ApiInterface apiService;
@@ -67,32 +70,38 @@ public class SwipeDeckActivitycopyAuthor extends AppCompatActivity {
     Bitmap bitmap;
     RelativeLayout linearLayout;
     private SwipeDeck cardStack;
-    private Context context = this;
+    private Context context = getActivity();
     SwipeDeckActivitycopy.SwipeDeckAdapterp adapter;
     private ArrayList<String> testData;
+    View mView;
 
     @SuppressLint("ResourceAsColor")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_swipe_deck_activitycopy_author);
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mView = inflater.inflate(R.layout.activity_swipe_deck_activitycopy_author, container, false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
+            Window window = getActivity().getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(R.color.colorPrimary);
         }
 
-        cardStack = (SwipeDeck) findViewById(R.id.swipe_deck);
-        imageViewShare = findViewById(R.id.share);
+        cardStack = (SwipeDeck) mView.findViewById(R.id.swipe_deck);
+        imageViewShare = mView.findViewById(R.id.share);
         cardStack.setHardwareAccelerationEnabled(true);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        Bundle extras = getIntent().getExtras();
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            id = bundle.getString("id");
+            mAuthorListId = bundle.getString("AuthorListId");
+        }
+      /*  Bundle extras = getActivity().getIntent().getExtras();
         assert extras != null;
         id = extras.getString("id");
         position = extras.getString("position");
-        mAuthorListId = extras.getString("AuthorListId");
+        mAuthorListId = extras.getString("AuthorListId");*/
 
         cardStack.setEventCallback(new SwipeDeck.SwipeEventCallback() {
             @Override
@@ -113,7 +122,7 @@ public class SwipeDeckActivitycopyAuthor extends AppCompatActivity {
                 modelCall.enqueue(new Callback<Author_SwiipeModel>() {
                     @Override
                     public void onResponse(Call<Author_SwiipeModel> call, Response<Author_SwiipeModel> response) {
-                        SwipeDeckActivitycopyAuthor.SwipeDeckAdapterp adapter = new SwipeDeckAdapterp(response.body().getData(), context, position);
+                        SwipeDeckActivitycopyAuthor.SwipeDeckAdapterp adapter = new SwipeDeckAdapterp(response.body().getData(), getActivity(), position);
                         cardStack.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
                     }
@@ -144,7 +153,7 @@ public class SwipeDeckActivitycopyAuthor extends AppCompatActivity {
         modelCall.enqueue(new Callback<Author_SwiipeModel>() {
             @Override
             public void onResponse(Call<Author_SwiipeModel> call, Response<Author_SwiipeModel> response) {
-                SwipeDeckActivitycopyAuthor.SwipeDeckAdapterp adapter = new SwipeDeckAdapterp(response.body().getData(), context, position);
+                SwipeDeckActivitycopyAuthor.SwipeDeckAdapterp adapter = new SwipeDeckAdapterp(response.body().getData(), getActivity(), position);
                 cardStack.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
@@ -154,6 +163,7 @@ public class SwipeDeckActivitycopyAuthor extends AppCompatActivity {
 
             }
         });
+        return mView;
     }
 
 
@@ -264,8 +274,8 @@ public class SwipeDeckActivitycopyAuthor extends AppCompatActivity {
             copy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE)).setText(textView.getText().toString());
-                    Toast.makeText(SwipeDeckActivitycopyAuthor.this, "Quote Copied.", Toast.LENGTH_SHORT).show();
+                    ((ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE)).setText(textView.getText().toString());
+                    Toast.makeText(getActivity(), "Quote Copied.", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -274,7 +284,7 @@ public class SwipeDeckActivitycopyAuthor extends AppCompatActivity {
                 public void onClick(View v) {
                     bitmap = getBitmap(linearLayout);
                     saveChart(bitmap, linearLayout.getMeasuredHeight(), linearLayout.getMeasuredWidth(), data.get(position).getQuotes_image());
-                    Toast.makeText(SwipeDeckActivitycopyAuthor.this, " Download Successfull.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), " Download Successfull.", Toast.LENGTH_SHORT).show();
                 }
             });
 
