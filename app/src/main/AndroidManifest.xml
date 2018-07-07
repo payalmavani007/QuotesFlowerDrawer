@@ -29,9 +29,7 @@
             android:windowSoftInputMode="adjustPan">
 
         </activity>
-        <activity android:name=".PreviewViewPager"/>
-        <activity android:name=".SwipeDeckActivitycopy"/>
-        <activity android:name=".SwipeDeckActivitycopyAuthor"/>
+
         <!-- Firebase Notifications -->
         <service
             android:name=".service.MyFirebaseMessagingService"
